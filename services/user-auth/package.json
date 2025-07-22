@@ -10,13 +10,9 @@
     "start": "node dist/main.js",
     "migrate": "prisma migrate dev --name init",
     "generate": "prisma generate",
-    "test": "vitest",
-    "prepare": "husky install"
+    "test": "vitest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maniR1990/userAuthMicroservice.git"
-  },
+
   "keywords": [
     "typescript",
     "node",
@@ -24,10 +20,6 @@
   ],
   "author": "manikandan",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/maniR1990/userAuthMicroservice/issues"
-  },
-  "homepage": "https://github.com/maniR1990/userAuthMicroservice#readme",
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/jwt": "^9.1.0",
@@ -50,7 +42,6 @@
     "@typescript-eslint/parser": "^8.37.0",
     "esbuild": "^0.25.8",
     "eslint": "^9.31.0",
-    "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "prisma": "^6.12.0",
