@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    ports:
+      # HOST:CONTAINER
+      - "15432:5432"          # ← host will be localhost:15432
+    environment:
+      POSTGRES_DB: userauth
+      POSTGRES_USER: postgresql
+      POSTGRES_PASSWORD: testApp
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "16379:6379"          # ← host will be localhost:16379
+    command: ["redis-server", "--appendonly", "yes"]
+
+volumes:
+  pgdata:
