@@ -1,0 +1,29 @@
+{
+  "name": "my-backend-monorepo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "workspaces": [
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maniR1990/backend-mono-repo.git"
+  },
+  "keywords": [
+    "monorepo",
+    "node",
+    "fastify",
+    "prisma"
+  ],
+  "author": "manikandan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maniR1990/backend-mono-repo/issues"
+  },
+  "homepage": "https://github.com/maniR1990/backend-mono-repo#readme",
+  "description": ""
+}
