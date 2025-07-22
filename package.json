@@ -1,0 +1,66 @@
+{
+  "name": "user-auth-micro-service",
+  "version": "1.0.0",
+  "description": "microservice built for authentication. ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "esbuild src/main.ts --bundle --platform=node --target=node20 --outfile=dist/main.js",
+    "start": "node dist/main.js",
+    "migrate": "prisma migrate dev --name init",
+    "generate": "prisma generate",
+    "test": "vitest",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maniR1990/userAuthMicroservice.git"
+  },
+  "keywords": [
+    "typescript",
+    "node",
+    "microservice"
+  ],
+  "author": "manikandan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maniR1990/userAuthMicroservice/issues"
+  },
+  "homepage": "https://github.com/maniR1990/userAuthMicroservice#readme",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/jwt": "^9.1.0",
+    "@fastify/rate-limit": "^10.3.0",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/instrumentation-fastify": "^0.48.0",
+    "@opentelemetry/sdk-node": "^0.203.0",
+    "@prisma/client": "^6.12.0",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.0",
+    "fastify": "^5.4.0",
+    "jsonwebtoken": "^9.0.2",
+    "redis": "^5.6.0",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.15",
+    "@types/supertest": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "esbuild": "^0.25.8",
+    "eslint": "^9.31.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "prisma": "^6.12.0",
+    "supertest": "^7.1.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "lint-staged": {
+    "*.ts": ["eslint --fix", "prettier --write"]
+  }
+}
