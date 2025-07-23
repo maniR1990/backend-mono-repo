@@ -1,5 +1,5 @@
 {
-  "name": "user-auth-micro-service",
+  "name": "@mani-r16-devkit/auth-microservice",
   "version": "1.0.0",
   "description": "microservice built for authentication. ",
   "main": "index.js",

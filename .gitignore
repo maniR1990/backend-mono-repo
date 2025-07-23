@@ -1,0 +1,99 @@
+###############################################################################
+# Core Node / pnpm / Turborepo
+###############################################################################
+# Node dependency folders
+node_modules/
+.pnpm-store/
+
+# Turborepo & Nx caches
+.turbo/
+.cache/
+nx-cache/
+
+# Build artifacts
+dist/
+build/
+*.tsbuildinfo
+
+# Log files
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+turbo-debug.log*
+*.log
+
+
+###############################################################################
+# Environment & secrets
+###############################################################################
+.env*
+!.env.example            # keep a template under version control
+.envrc
+*.local
+
+
+###############################################################################
+# Prisma
+###############################################################################
+# Database credentials or local overrides
+prisma/.env
+
+# Local SQLite databases (if you ever use SQLite for quick tests)
+prisma/*.db
+prisma/*.sqlite
+
+# SQL dumps or ad-hoc export files
+prisma/*.sql
+# NOTE: **Do commit** prisma/schema.prisma and prisma/migrations/**
+
+
+###############################################################################
+# Docker
+###############################################################################
+docker/*.local.yml
+**/Dockerfile.generated
+
+
+###############################################################################
+# Testing / coverage
+###############################################################################
+coverage/
+.nyc_output/
+jest-stare/
+cypress/screenshots/
+cypress/videos/
+
+
+###############################################################################
+# IDE / OS cruft
+###############################################################################
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# VS Code / JetBrains
+.vscode/
+.idea/
+.history/
+
+# Vim / nano swap files
+*.swp
+*.swo
+
+
+###############################################################################
+# Git hooks & lint-staged temp
+###############################################################################
+.husky/_/
+.prettier-cache/
+
+
+###############################################################################
+# Misc
+###############################################################################
+# Packaged Helm charts, Skaffold artefacts, etc.
+*.tgz
+chart-museum/
+
+
+# End of .gitignore

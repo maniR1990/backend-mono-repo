@@ -1,13 +1,20 @@
 {
-  "name": "my-backend-monorepo",
+  "name": "@manir-devkit/root",
   "version": "1.0.0",
   "main": "index.js",
+  "packageManager": "pnpm@9.2.0",
   "workspaces": [
     "services/*",
     "packages/*"
   ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   "scripts": {
+    "dev":   "pnpm --filter './services/**' --parallel dev",
+    "build": "pnpm --filter './services/**' --parallel build",
+    "test":  "pnpm --filter './**'          --parallel test"
+  },
+  "devDependencies": {
+    "pnpm": "9.2.0",
+    "turbo": "^2.5.5"
   },
   "repository": {
     "type": "git",
