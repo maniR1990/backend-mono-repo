@@ -2,60 +2,6 @@
 
 Fastify-based authentication service.
 
-## Available Scripts
-
-```jsonc
-{
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/main.ts",
-    "build": "esbuild src/main.ts --bundle --platform=node --target=node20 --outfile=dist/main.js",
-    "start": "node dist/main.js",
-    "migrate": "prisma migrate dev --name init",
-    "generate": "prisma generate",
-    "test": "vitest",
-    "prepare": "husky install"
-  }
-}
-```
-
-- `type: module` lets you use native ESM imports.
-- `dev` uses tsx for super-fast reloads.
-- `build` bundles into a single file with esbuild.
-
-## Post-install Steps
-
-### Prisma
-```bash
-npx prisma init            # creates prisma/schema.prisma & .env
-npm run migrate            # runs first migration & seeds DB
-```
-
-### Husky + lint-staged
-```bash
-npm run prepare
-npx husky add .husky/pre-commit "npx lint-staged"
-```
-
-Add to `package.json`:
-```jsonc
-"lint-staged": {
-  "*.ts": ["eslint --fix", "prettier --write"]
-}
-```
-
-## Development
-
-Start the dev server:
-```bash
-npm run dev
-```
-
-Run tests:
-```bash
-npm test
-```
-
 ## Runtime Dependencies
 
 ```json
