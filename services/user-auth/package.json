@@ -12,7 +12,6 @@
     "generate": "prisma generate",
     "test": "vitest"
   },
-
   "keywords": [
     "typescript",
     "node",
@@ -24,13 +23,16 @@
     "@fastify/cookie": "^11.0.2",
     "@fastify/jwt": "^9.1.0",
     "@fastify/rate-limit": "^10.3.0",
+    "@mani-r16-devkit/auth-mw": "workspace:^",
+    "@mani-r16-devkit/core": "workspace:^",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/instrumentation-fastify": "^0.48.0",
     "@opentelemetry/sdk-node": "^0.203.0",
     "@prisma/client": "^6.12.0",
     "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.0",
-    "fastify": "^5.4.0",
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.1",
     "jsonwebtoken": "^9.0.2",
     "redis": "^5.6.0",
     "zod": "^4.0.5"
@@ -52,6 +54,9 @@
     "vitest": "^3.2.4"
   },
   "lint-staged": {
-    "*.ts": ["eslint --fix", "prettier --write"]
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

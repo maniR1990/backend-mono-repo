@@ -1,6 +1,6 @@
 # Backend Mono Repo
 
-This repository hosts a collection of backend services and shared libraries.  It is organised as a **pnpm** monorepo using **turborepo** for task orchestration.  At the moment it only contains a few skeleton packages and one service, but it serves as a starting point for a larger microservice architecture.
+This repository hosts a collection of backend services and shared libraries. It is organised as a **pnpm** monorepo using **turborepo** for task orchestration. At the moment it only contains a few skeleton packages and one service, but it serves as a starting point for a larger microservice architecture.
 
 ## Folder structure
 
@@ -46,3 +46,8 @@ This repository hosts a collection of backend services and shared libraries.  It
 
 The code base is still at an early stage. Many packages contain placeholders or empty files that will be fleshed out as development continues. See the README in each package or service for more details.
 
+microservice: health check up curl:
+
+curl http://localhost:4000/health
+
+# → {"status":"ok","data":{"uptime":...},"meta":{"trace_id":null}}

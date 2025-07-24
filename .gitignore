@@ -97,3 +97,12 @@ chart-museum/
 
 
 # End of .gitignore
+
+# ESLint cache
+.eslintcache
+
+# TypeScript build info (if you ever emit tsbuildinfo outside of build/)
+*.tsbuildinfo
+
+# VSCode ESLint plugin cache
+.vscode/.eslintcache

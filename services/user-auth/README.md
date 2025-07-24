@@ -14,8 +14,8 @@ Fastify-based authentication service.
     "migrate": "prisma migrate dev --name init",
     "generate": "prisma generate",
     "test": "vitest",
-    "prepare": "husky install"
-  }
+    "prepare": "husky install",
+  },
 }
 ```
 
@@ -26,18 +26,21 @@ Fastify-based authentication service.
 ## Post-install Steps
 
 ### Prisma
+
 ```bash
 npx prisma init            # creates prisma/schema.prisma & .env
 npm run migrate            # runs first migration & seeds DB
 ```
 
 ### Husky + lint-staged
+
 ```bash
 npm run prepare
 npx husky add .husky/pre-commit "npx lint-staged"
 ```
 
 Add to `package.json`:
+
 ```jsonc
 "lint-staged": {
   "*.ts": ["eslint --fix", "prettier --write"]
@@ -47,11 +50,13 @@ Add to `package.json`:
 ## Development
 
 Start the dev server:
+
 ```bash
 npm run dev
 ```
 
 Run tests:
+
 ```bash
 npm test
 ```
@@ -99,7 +104,7 @@ npm test
 
     // fast reload / build
     "esbuild": "^0.23.0",
-    "tsx": "^4.7.0",        // tiny TS runner (alternative to nodemon + ts-node-dev)
+    "tsx": "^4.7.0", // tiny TS runner (alternative to nodemon + ts-node-dev)
 
     // ── Prisma CLI ────────────────
     "prisma": "^5.0.0",
@@ -119,3 +124,12 @@ npm test
   }
 }
 ```
+
+pnpm commands.
+
+pnpm -r exec -- pwd
+ppnpm add @mani-r16-devkit/core --filter ./services/user-auth --workspace
+pnpm add @mani-r16-devkit/auth-mw --filter ./services/user-auth --workspace
+
+pnpm install
+pnpm turbo run build # builds packages then services

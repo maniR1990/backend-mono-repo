@@ -1,6 +1,6 @@
 # `@mani-r16-devkit/auth-mw`
 
-Fastify middleware for handling JWT authentication.  The implementation is still
+Fastify middleware for handling JWT authentication. The implementation is still
 minimal but will provide hooks for verifying tokens and protecting routes.
 
 ## Scripts
