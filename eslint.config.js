@@ -2,7 +2,7 @@ const tsPlugin = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
 const importPlugin = require('eslint-plugin-import');
 const sortImports = require('eslint-plugin-simple-import-sort');
-const { flatConfigPrettier } = require('eslint-config-prettier/flat');
+const flatConfigPrettier = require('eslint-config-prettier/flat');
 
 module.exports = [
   // ignore generated and external files
