@@ -8,8 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm --filter './services/**' --parallel dev",
-    "build": "pnpm --filter './services/**' --parallel build",
+    "dev": "pnpm --filter '{services/**,packages/**}' --parallel dev",
+    "build": "pnpm -r run build",
     "lint": "eslint . --ext .ts --cache --fix",
     "lint:ci": "eslint . --ext .ts --cache",
     "format": "prettier --write .",

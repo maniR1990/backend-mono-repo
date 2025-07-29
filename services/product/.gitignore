@@ -59,8 +59,3 @@ Thumbs.db
 #  Docker local volumes (optional)                                            #
 ###############################################################################
 docker/data/
-
-
-# Generated code (e.g. from proto)
-**/proto/**/*.js
-**/proto/**/*.d.ts

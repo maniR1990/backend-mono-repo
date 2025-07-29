@@ -1,43 +1,94 @@
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
-const tsParser = require('@typescript-eslint/parser');
-const importPlugin = require('eslint-plugin-import');
-const sortImports = require('eslint-plugin-simple-import-sort');
-const flatConfigPrettier = require('eslint-config-prettier/flat');
+const path = require('path');
 
 module.exports = [
-  // ignore generated and external files
-  flatConfigPrettier,
+  require('eslint-config-prettier/flat'),
   { ignores: ['**/node_modules/**', '**/dist/**', '.turbo/**', '.pnpm-store/**'] },
 
-  // apply to all TypeScript files
+  // auth-mw
   {
-    files: ['**/*.ts'],
+    files: ['packages/auth-mw/**/*.ts'],
     languageOptions: {
-      parser: tsParser,
+      parser: require('@typescript-eslint/parser'),
       parserOptions: {
-        project: './tsconfig.base.json',
+        project: path.resolve(__dirname, 'packages/auth-mw/tsconfig.json'),
         tsconfigRootDir: __dirname,
         sourceType: 'module',
       },
     },
     plugins: {
-      '@typescript-eslint': tsPlugin,
-      import: importPlugin,
-      'simple-import-sort': sortImports,
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
+      import: require('eslint-plugin-import'),
+      'simple-import-sort': require('eslint-plugin-simple-import-sort'),
     },
     rules: {
-      // recommended TS rules
-      ...tsPlugin.configs.recommended.rules,
-      // imports sorting
+      ...require('@typescript-eslint/eslint-plugin').configs.recommended.rules,
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      // turn off conflicting rules
       'import/order': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
     settings: {
       'import/resolver': {
-        typescript: { project: ['./tsconfig.base.json'] },
+        typescript: {
+          project: [path.resolve(__dirname, 'packages/auth-mw/tsconfig.json')],
+        },
+      },
+    },
+  },
+
+  // core
+  {
+    files: ['packages/core/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: path.resolve(__dirname, 'packages/core/tsconfig.json'),
+        tsconfigRootDir: __dirname,
+        sourceType: 'module',
+      },
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: [path.resolve(__dirname, 'packages/core/tsconfig.json')],
+        },
+      },
+    },
+  },
+
+  // user-auth
+  {
+    files: ['services/user-auth/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: path.resolve(__dirname, 'services/user-auth/tsconfig.json'),
+        tsconfigRootDir: __dirname,
+        sourceType: 'module',
+      },
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: [path.resolve(__dirname, 'services/user-auth/tsconfig.json')],
+        },
+      },
+    },
+  },
+
+  // products
+  {
+    files: ['services/products/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: path.resolve(__dirname, 'services/products/tsconfig.json'),
+        tsconfigRootDir: __dirname,
+        sourceType: 'module',
+      },
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: [path.resolve(__dirname, 'services/products/tsconfig.json')],
+        },
       },
     },
   },

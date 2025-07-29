@@ -1,4 +1,4 @@
-// services/user-auth/src/app.ts
+// services/product/src/app.ts
 import Fastify from 'fastify';
 
 export function buildApp() {
@@ -9,8 +9,8 @@ export function buildApp() {
     return { uptime: process.uptime() };
   });
 
-  // 2) Your real API routes go here…
-  //    e.g. app.register(authRoutes, { prefix: '/v1/auth' });
+  // 2) Your product routes…
+  //    e.g. app.register(productRoutes, { prefix: '/v1/product' });
 
   // 3) Global error handler
   app.setErrorHandler((err, _req, reply) => {

@@ -106,3 +106,8 @@ chart-museum/
 
 # VSCode ESLint plugin cache
 .vscode/.eslintcache
+
+
+# Generated code (e.g. from proto)
+**/proto/**/*.js
+**/proto/**/*.d.ts

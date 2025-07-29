@@ -1,9 +1,10 @@
 {
-  "name": "@mani-r16-devkit/auth-microservice",
+  "name": "@mani-r16-devkit/product-microservice",
   "version": "1.0.0",
-  "description": "microservice built for authentication. ",
+  "description": "products dashboard",
   "main": "index.js",
-  "type": "module",
+  "author": "manikandan",
+  "license": "ISC",
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "esbuild src/main.ts --bundle --platform=node --target=node20 --outfile=dist/main.js",
@@ -12,13 +13,6 @@
     "generate": "prisma generate",
     "test": "vitest"
   },
-  "keywords": [
-    "typescript",
-    "node",
-    "microservice"
-  ],
-  "author": "manikandan",
-  "license": "ISC",
   "dependencies": {
     "@mani-r16-devkit/auth-mw": "workspace:^",
     "@mani-r16-devkit/core": "workspace:^",
@@ -26,6 +20,12 @@
     "fastify": "^5.0.0",
     "dotenv": "^17.2.0",
     "zod": "^4.0.5"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@types/node": "^24.0.15",
@@ -42,12 +42,6 @@
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   },
   "exports": {
     ".": "./dist/main.js"

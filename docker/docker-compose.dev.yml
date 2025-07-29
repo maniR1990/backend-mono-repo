@@ -1,23 +1,65 @@
+version: '3.9'
+
 services:
+  gateway:
+    build:
+      context: ../gateway
+    ports:
+      - '80:80'
+    depends_on:
+      - user-auth
+      - product
+    environment:
+      - GATEWAY_URL=http://gateway:80
+      - AUTH_URL=http://user-auth:4000
+      - PRODUCT_URL=http://product:4001
+    restart: unless-stopped
+
+  user-auth:
+    build:
+      context: ..
+      dockerfile: services/user-auth/Dockerfile
+    ports:
+      - '4000:4000'
+    environment:
+      DATABASE_URL: postgres://postgresql:postgresql@postgres:5432/userauth
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
+  product:
+    build:
+      context: ..
+      dockerfile: services/product/Dockerfile
+    ports:
+      - '4001:4001'
+    environment:
+      DATABASE_URL: postgres://postgresql:postgresql@postgres:5432/product_db
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
   postgres:
     image: postgres:16-alpine
-    restart: unless-stopped
     ports:
-      # HOST:CONTAINER
-      - '15432:5432' # ← host will be localhost:15432
+      - '15432:5432'
     environment:
-      POSTGRES_DB: userauth
       POSTGRES_USER: postgresql
       POSTGRES_PASSWORD: postgresql
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
-    restart: unless-stopped
     ports:
-      - '16379:6379' # ← host will be localhost:16379
+      - '16379:6379'
     command: ['redis-server', '--appendonly', 'yes']
+    restart: unless-stopped
 
 volumes:
   pgdata:

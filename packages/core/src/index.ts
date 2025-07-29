@@ -1,1 +1,1 @@
-export * from './wrapResponsePlugin';
+export { wrapResponse } from './wrapResponsePlugin';
