@@ -2,26 +2,42 @@
 
 Fastify-based authentication service.
 
-## Available Scripts
+## Docker
 
-```jsonc
-{
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/main.ts",
-    "build": "esbuild src/main.ts --bundle --platform=node --target=node20 --outfile=dist/main.js",
-    "start": "node dist/main.js",
-    "migrate": "prisma migrate dev --name init",
-    "generate": "prisma generate",
-    "test": "vitest",
-    "prepare": "husky install",
-  },
-}
+Run the authentication service together with its dependencies:
+
+```bash
+docker compose -f docker/docker-compose.dev.yml up --build user-auth
 ```
 
-- `type: module` lets you use native ESM imports.
-- `dev` uses tsx for super-fast reloads.
-- `build` bundles into a single file with esbuild.
+Troubleshoot the running container:
+
+```bash
+docker compose logs -f user-auth
+docker compose ps
+```
+
+## PNPM Commands
+
+Start the service in watch mode:
+
+```bash
+pnpm --filter ./services/user-auth dev
+```
+
+Build the service:
+
+```bash
+pnpm --filter ./services/user-auth build
+```
+
+Run tests:
+
+```bash
+pnpm --filter ./services/user-auth test
+```
+
+These scripts are defined in `package.json` and leverage `tsx` and `esbuild` for a fast workflow.
 
 ## Post-install Steps
 
@@ -59,6 +75,15 @@ Run tests:
 
 ```bash
 npm test
+```
+
+## Environment Variables
+
+This service reads configuration from a `.env` file. To verify the values while running with Docker:
+
+```bash
+docker compose exec user-auth env | grep PORT
+docker compose config | grep DATABASE_URL
 ```
 
 ## Runtime Dependencies
@@ -124,12 +149,3 @@ npm test
   }
 }
 ```
-
-pnpm commands.
-
-pnpm -r exec -- pwd
-ppnpm add @mani-r16-devkit/core --filter ./services/user-auth --workspace
-pnpm add @mani-r16-devkit/auth-mw --filter ./services/user-auth --workspace
-
-pnpm install
-pnpm turbo run build # builds packages then services
