@@ -1,0 +1,9 @@
+export const AUTH_CONSTANT = {
+  SIGN_UP: {
+    FAILED: 'SIGNUP FAILED ',
+  },
+  LOG_IN: {
+    INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
+    NO_USER: 'NO REGISTERED USER',
+  },
+};
