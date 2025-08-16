@@ -4,10 +4,10 @@ Fastify-based authentication service.
 
 ## Docker
 
-Run the authentication service together with its dependencies:
+Run all services together with their dependencies from the repository root:
 
 ```bash
-docker compose -f docker/docker-compose.dev.yml up --build user-auth
+docker compose -f docker/docker-compose.dev.yml up --build
 ```
 
 Troubleshoot the running container:
