@@ -12,6 +12,7 @@ A collection of backend services and shared packages built with **Fastify**. The
 - [Environment Variables](#environment-variables)
 - [Packages](#packages)
 - [Health Check](#health-check)
+- [Auth Service Routes](#auth-service-routes)
 - [Further Reading](#further-reading)
 
 ## Folder Structure
@@ -136,6 +137,26 @@ Response:
 
 ```json
 { "status": "ok", "data": { "uptime": 0 }, "meta": { "trace_id": null } }
+```
+
+## Auth Service Routes
+
+In addition to `/health` (shown above), the `user-auth` service exposes the following routes:
+
+```bash
+# Sign up a new user
+curl -X POST http://localhost:4000/v1/signup \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"secret","profile":{}}'
+
+# Log in to receive a token
+curl -X POST http://localhost:4000/v1/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"secret"}'
+
+# Get current user (requires JWT token)
+curl http://localhost:4000/v1/me \
+  -H "Authorization: Bearer <TOKEN>"
 ```
 
 ## Further Reading
