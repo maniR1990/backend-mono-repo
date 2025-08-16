@@ -6,7 +6,10 @@ A collection of backend services and shared packages built with **Fastify**. The
 
 - [Folder Structure](#folder-structure)
 - [Getting Started](#getting-started)
+- [Docker](#docker)
+- [PNPM Commands](#pnpm-commands)
 - [Development Workflow](#development-workflow)
+- [Environment Variables](#environment-variables)
 - [Packages](#packages)
 - [Health Check](#health-check)
 - [Further Reading](#further-reading)
@@ -45,6 +48,48 @@ A collection of backend services and shared packages built with **Fastify**. The
    pnpm build
    ```
 
+## Docker
+
+Run all services along with their dependencies using Docker Compose:
+
+```bash
+docker compose -f docker/docker-compose.dev.yml up --build
+```
+
+Stop and remove the containers when finished:
+
+```bash
+docker compose -f docker/docker-compose.dev.yml down
+```
+
+Useful commands when troubleshooting:
+
+```bash
+docker compose ps              # list running containers
+docker compose logs -f <svc>   # view logs for a service
+docker images                  # list images
+docker container ls            # list running containers
+```
+
+## PNPM Commands
+
+- Build every package and service:
+  ```bash
+  pnpm build
+  ```
+- Start all services in watch mode:
+  ```bash
+  pnpm dev
+  ```
+- Run a single service by filtering:
+  ```bash
+  pnpm --filter ./services/user-auth dev
+  ```
+- Execute a command across all workspaces:
+  ```bash
+  pnpm -r exec -- pwd
+  ```
+
 ## Development Workflow
 
 - **Lint** the project and automatically fix issues:
@@ -59,6 +104,16 @@ A collection of backend services and shared packages built with **Fastify**. The
   ```bash
   pnpm test
   ```
+
+## Environment Variables
+
+Application configuration is loaded from environment variables. Create a `.env` file in each service directory or supply values through Docker Compose. If variables do not seem to load, use the following commands to inspect them:
+
+```bash
+printenv DATABASE_URL                  # check locally
+docker compose exec user-auth env      # inspect inside the container
+docker compose config                  # view resolved compose config
+```
 
 ## Packages
 
