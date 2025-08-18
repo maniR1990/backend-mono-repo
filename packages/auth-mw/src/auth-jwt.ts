@@ -1,31 +1,24 @@
-import fastifyJwt from '@fastify/jwt';
 import fp from 'fastify-plugin';
+import fastifyJwt from '@fastify/jwt';
+import type { FastifyReply } from 'fastify/types/reply';
+import type { FastifyRequest } from 'fastify/types/request';
 
-export type signIn = {
-  accessExpiresIn?: string;
-};
-export interface AuthJwtOptions {
-  secret: string;
-  sign: signIn;
-}
+export default fp(async (app) => {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    app.log.error('JWT_SECRET is missing or empty');
+    throw new Error('JWT_SECRET is not set');
+  }
 
-export const authJwt = (opts: AuthJwtOptions) => {
-  fp(async (app) => {
-    app.register(fastifyJwt, {
-      secret: opts?.secret,
-      sign: {
-        expiresIn: opts?.sign?.accessExpiresIn ?? '15m',
-      },
-    });
+  if (!app.hasDecorator('jwt')) {
+    app.register(fastifyJwt, { secret });
+  }
 
-    app.decorate('authenticate', async (req: any, reply: any) => {
-      try {
-        await req.jwtVerify();
-      } catch {
-        reply.code(401).send({ status: 'error', error: 'UNAUTHENTICATED' });
-      }
-    });
+  app.decorate('authenticate', async (req: FastifyRequest, reply: FastifyReply) => {
+    try {
+      await req.jwtVerify();
+    } catch {
+      return reply.code(401).send({ error: 'unauthorized' });
+    }
   });
-};
-
-export { fastifyJwt };
+});

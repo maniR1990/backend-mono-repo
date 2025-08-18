@@ -5,7 +5,7 @@ import { env } from './config';
   const app = buildApp();
   try {
     await app.listen({ port: env.PORT, host: '0.0.0.0' });
-    app.log.info(`Auth service listening on ${env.PORT}`);
+    app.log.info(`product service listening on ${env.PORT}`);
   } catch (err) {
     console.error('Failed to start server:', err);
     process.exit(1);

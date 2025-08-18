@@ -5,7 +5,7 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "types": ["node"], // ✅ Required for Node built-ins (like process, etc.)
+    "types": ["node", "@fastify/jwt"], // ✅ Required for Node built-ins (like process, etc.)
 
     "skipLibCheck": true, // ✅ Safe in most cases, speeds up build
     "baseUrl": ".", // ✅ Enables clean relative imports
@@ -16,5 +16,5 @@
     }
   },
 
-  "include": ["src"] // ✅ Only include your service’s own code
+  "include": ["src", "src/**/*.d.ts"] // ✅ Only include your service’s own code
 }

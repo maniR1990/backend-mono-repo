@@ -1,2 +1,2 @@
 // packages/auth-mw/src/index.ts
-export * from './auth-jwt';
+export { default } from './auth-jwt';
