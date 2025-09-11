@@ -5,3 +5,12 @@ pnpm-lock.yaml
 Dockerfile
 .dockerignore
 .env
+.git
+node_modules
+**/node_modules
+dist
+build
+.tmp
+.env*
+Dockerfile
+**/*.log

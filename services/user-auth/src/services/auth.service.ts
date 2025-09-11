@@ -34,7 +34,7 @@ export async function verifyLogin(input: login): Promise<LoginResult> {
   const user = await userDAO.getUserByEmail(input.email);
 
   if (!user) {
-    throw new Error(AUTH_CONSTANT.LOG_IN.NO_USER);
+    throw new Error(AUTH_CONSTANT.LOG_IN.USER_NOT_FOUND);
   }
 
   const isValid = await bcrypt.compare(input.password, user.passwordHash);

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const email = z.email().trim().toLowerCase();
+export const email = z.string().email().trim().toLowerCase();
 export const password = z.string().min(8);
 
 export const ProfileIn = z.object({

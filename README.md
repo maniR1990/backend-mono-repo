@@ -7,12 +7,14 @@ A collection of backend services and shared packages built with **Fastify**. The
 - [Folder Structure](#folder-structure)
 - [Getting Started](#getting-started)
 - [Docker](#docker)
+  - See: [Docker Guide](docs/DOCKER_GUIDE.md)
 - [PNPM Commands](#pnpm-commands)
 - [Development Workflow](#development-workflow)
 - [Environment Variables](#environment-variables)
 - [Packages](#packages)
 - [Health Check](#health-check)
 - [Auth Service Routes](#auth-service-routes)
+- [API Routes](#api-routes)
 - [Further Reading](#further-reading)
 
 ## Folder Structure
@@ -71,6 +73,10 @@ docker compose logs -f <svc>   # view logs for a service
 docker images                  # list images
 docker container ls            # list running containers
 ```
+
+For a comprehensive guide (rebuilding one service, DB access, safe cleanup, troubleshooting), see:
+
+- docs/DOCKER_GUIDE.md
 
 ## PNPM Commands
 
@@ -162,3 +168,9 @@ curl http://localhost:4000/v1/me \
 ## Further Reading
 
 See [docs/PNPM_GUIDE.md](docs/PNPM_GUIDE.md) for more detailed `pnpm` commands and tips.
+
+## API Routes
+
+Full, service-wise API documentation (endpoints, parameters, responses, and cURL examples) is available at:
+
+- `docs/API_ROUTES.md`

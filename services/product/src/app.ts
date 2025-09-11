@@ -6,6 +6,7 @@ import productRoutes from './routes/product.routes';
 import cartRoutes from './routes/cart.routes';
 import authJwtPlugin from '@mani-r16-devkit/auth-mw';
 import cartWsPlugin from './websockets/index';
+import { toHttpError } from './errors';
 
 export function buildApp() {
   const app = Fastify({ logger: true });
@@ -27,14 +28,8 @@ export function buildApp() {
   // 3) Global error handler
   app.setErrorHandler((err, req, reply) => {
     req.log.error(err);
-    const map: Record<string, number> = {
-      PRODUCT_NOT_FOUND: 404,
-      OUT_OF_STOCK: 400,
-      ITEM_NOT_FOUND: 404,
-      FORBIDDEN: 403,
-    };
-    const status = map[err.message] ?? 500;
-    reply.code(status).send({ success: false, error: err.message });
+    const { status, body } = toHttpError(err);
+    reply.code(status).send(body);
   });
 
   return app;

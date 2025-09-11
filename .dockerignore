@@ -1,7 +1,16 @@
 **/node_modules
 **/.pnpm
 **/dist
-.env
 Dockerfile
 .dockerignore
 pnpm-lock.yaml
+npm-debug.log
+pnpm-debug.log
+Dockerfile
+docker-compose.yml
+dist
+build
+coverage
+.env
+.env.*
+.vscode

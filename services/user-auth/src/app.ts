@@ -4,6 +4,7 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import authJwt from './middlewares/auth-jwt';
 import authRoutes from './routes/auth.routes';
+import { toHttpError } from './errors';
 
 export function buildApp() {
   const app = Fastify({ logger: true });
@@ -26,10 +27,8 @@ export function buildApp() {
   // 3) Global error handler
   app.setErrorHandler((err, _req, reply) => {
     app.log.error(err);
-    reply
-      .status(err.statusCode ?? 500)
-      .type('application/json')
-      .send({ status: 'error', message: 'Internal Server Error' });
+    const { status, body } = toHttpError(err);
+    reply.status(status).type('application/json').send(body);
   });
 
   return app;

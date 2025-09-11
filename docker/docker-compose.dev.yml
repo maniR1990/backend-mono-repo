@@ -5,42 +5,56 @@ services:
     build:
       context: ../gateway
     ports:
-      - '80:80'
+      - '3000:3000'
+    environment:
+      - GATEWAY_URL=http://gateway:3000
+      - AUTH_URL=http://user-auth:4000
+      - PRODUCT_URL=http://product:4001
     depends_on:
       - user-auth
       - product
-    environment:
-      - GATEWAY_URL=http://gateway:80
-      - AUTH_URL=http://user-auth:4000
-      - PRODUCT_URL=http://product:4001
     restart: unless-stopped
 
   user-auth:
     build:
       context: ..
       dockerfile: services/user-auth/Dockerfile
+      target: dev
     ports:
       - '4000:4000'
     environment:
-      DATABASE_URL: postgres://postgresql:postgresql@postgres:5432/userauth
+      DATABASE_URL: postgresql://postgresql:charu@postgres:5432/user_auth_db
       REDIS_URL: redis://redis:6379
+      NODE_ENV: development
+    command: ['sh', '-lc', 'pnpm prisma migrate deploy || pnpm prisma db push; pnpm run dev']
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
     restart: unless-stopped
 
   product:
     build:
       context: ..
       dockerfile: services/product/Dockerfile
+      target: dev
     ports:
       - '4001:4001'
     environment:
-      DATABASE_URL: postgres://postgresql:postgresql@postgres:5432/product_db
+      DATABASE_URL: postgresql://postgresql:charu@postgres:5432/product_db
       REDIS_URL: redis://redis:6379
+      NODE_ENV: development
+    command: ['sh', '-lc', 'pnpm prisma db push && pnpm prisma db seed || true; pnpm run dev']
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
     restart: unless-stopped
 
   postgres:
@@ -49,9 +63,15 @@ services:
       - '15432:5432'
     environment:
       POSTGRES_USER: postgresql
-      POSTGRES_PASSWORD: postgresql
+      POSTGRES_PASSWORD: charu
+      POSTGRES_DB: appdb
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgresql -d appdb']
+      interval: 5s
+      timeout: 3s
+      retries: 10
     restart: unless-stopped
 
   redis:
@@ -60,6 +80,22 @@ services:
       - '16379:6379'
     command: ['redis-server', '--appendonly', 'yes']
     restart: unless-stopped
+
+  db-init:
+    image: postgres:16-alpine
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: charu
+    entrypoint: ['sh', '-lc']
+    command:
+      - >-
+        psql -h postgres -U postgresql -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='user_auth_db'" | grep -q 1
+        || psql -h postgres -U postgresql -d postgres -c "CREATE DATABASE user_auth_db";
+        psql -h postgres -U postgresql -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='product_db'" | grep -q 1
+        || psql -h postgres -U postgresql -d postgres -c "CREATE DATABASE product_db";
+    restart: 'no'
 
 volumes:
   pgdata:
